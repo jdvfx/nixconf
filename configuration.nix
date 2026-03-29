@@ -36,15 +36,16 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  fonts.packages = with pkgs; [
+    cascadia-code
+  ];
+
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -81,23 +82,32 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Install niri??
-  programs.niri.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
+  programs.niri.enable = true;
+  # it's using Lightdm.
+
   environment.systemPackages = with pkgs; [
+    htop
+    alacritty
+    xwayland-satellite
     neovim
     git
+    stow
     fuzzel
     tofi
     waybar
+    swaybg
+    feh
+    evince
     brave
     ungoogled-chromium  
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -124,6 +134,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment? Yes, I did.
 
 }
