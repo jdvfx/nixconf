@@ -14,7 +14,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  # fix T480 
+  boot.kernelParams = [ "i915.enable_psr=0" ];
+
+  networking.hostName = "thinkpad-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -23,9 +26,12 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Disable bluetooth
+  # bluetooth
   hardware.bluetooth.enable = false;
+  # CUPS to print documents.
+  services.printing.enable = false;
+  
+  nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
@@ -42,13 +48,18 @@
     variant = "";
   };
 
+  # Adding fonts
   fonts.packages = with pkgs; [
     cascadia-code
   ];
 
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # bash aliases
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      rebuild = "sudo nixos-rebuild switch";
+    };
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -67,7 +78,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bunker = {
@@ -92,12 +103,15 @@
   # it's using Lightdm.
 
   environment.systemPackages = with pkgs; [
+    lm_sensors
+    thinkfan
     htop
     alacritty
     xwayland-satellite
     neovim
     git
     stow
+    gimp
     fuzzel
     tofi
     waybar
@@ -106,6 +120,12 @@
     evince
     brave
     ungoogled-chromium  
+    vscodium
+    gcc
+    lf
+    keepassxc
+    python315
+    gnome-terminal
   ];
 
 
