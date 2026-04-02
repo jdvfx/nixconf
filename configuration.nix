@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./aliases.nix
     ];
 
   # Bootloader.
@@ -53,13 +54,13 @@
     cascadia-code
   ];
 
-  # bash aliases
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      rebuild = "sudo nixos-rebuild switch";
-    };
-  };
+  # # bash aliases
+  # programs.bash = {
+  #   enable = true;
+  #   shellAliases = {
+  #     rebuild = "sudo nixos-rebuild switch";
+  #   };
+  # };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
