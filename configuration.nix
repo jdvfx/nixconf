@@ -22,6 +22,8 @@
   hardware.bluetooth.enable = false;
   # CUPS to print documents.
   services.printing.enable = false;
+  # Wacom
+  services.xserver.wacom.enable = true;
   
   nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
 
@@ -111,7 +113,22 @@
     python315
     gnome-terminal
     gedit
+    psmisc #killall
+    unzip #for nvim's stylua
   ];
+
+
+  # # auto cleanup
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 20d";
+  # };
+  #
+  # nix.optimise = {
+  #   automatic = true;
+  #   dates = ["weekly"];
+  # };
 
 
   # Some programs need SUID wrappers, can be configured further or are
