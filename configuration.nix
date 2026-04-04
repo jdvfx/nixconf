@@ -115,6 +115,7 @@
     gedit
     psmisc #killall
     unzip #for nvim's stylua
+    tree
   ];
 
 

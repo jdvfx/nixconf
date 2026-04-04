@@ -10,6 +10,7 @@
       nixupdate = "sudo nixos-rebuild switch --upgrade";
       nixconf="sudo nvim /etc/nixos/configuration.nix";
       nixclean="nix-collect-garbage";
+      nixbins="ls -l /nix/var/nix/profiles/system/sw/bin";
 
       # VSCodium
       code="codium";
