@@ -36,54 +36,27 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  # Enable the X11 windowing system.
-  # needed for LightDM
-
-
-services.xserver = {
-  enable = true;
-  displayManager = {
-    lightdm = {
-      enable = true;
-      greeters.gtk = {
+  # LightDM 
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      lightdm = {
         enable = true;
-        theme.package = pkgs.gnome-themes-extra;
-        theme.name = "Adwaita-dark";
-        iconTheme.package = pkgs.adwaita-icon-theme;
-        iconTheme.name = "Adwaita";
+        greeters.gtk = {
+          enable = true;
+          theme.package = pkgs.gnome-themes-extra;
+          theme.name = "Adwaita-dark";
+          iconTheme.package = pkgs.adwaita-icon-theme;
+          iconTheme.name = "Adwaita";
+        };
+        background =
+          pkgs.runCommand "my-wallpaper" {} ''
+          mkdir -p $out
+          cp ${./wallpaper.png} $out/wallpaper.png
+          '' + "/wallpaper.png";
       };
-      background =
-        pkgs.runCommand "my-wallpaper" {} ''
-        mkdir -p $out
-        cp ${./wallpaper.png} $out/wallpaper.png
-        '' + "/wallpaper.png";
     };
   };
-};
-
-
-	#  services.xserver.enable = true;
-	#
-	#  services.xserver.displayManager.lightdm = {
-	#    enable = true;
-	#      greeters.gtk = {
-	#        enable = true;
-	#        theme.package = pkgs.flat-remix-gtk;
-	#        theme.name = "Flat-Remix-GTK-Dark-Blue";
-	#        iconTheme.package = pkgs.flat-remix-icon-theme;
-	#        iconTheme.name = "Flat-Remix-Dark-Blue";
-	#        background = "#000000"; # Or set to an absolute path for an image
-	#        # background = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
-	#     # background =
-	#     # pkgs.runCommand "my-wallpaper" {} ''
-	#     #   mkdir -p $out
-	#     #   cp ${./wallpaper.png} $out/wallpaper.png
-	#     #   '' + "/wallpaper.png";
-	# };
-	#
-	#
-	#
-	#  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
