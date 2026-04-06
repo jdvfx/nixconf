@@ -20,9 +20,12 @@
   networking.networkmanager.enable = true;
   # bluetooth
   hardware.bluetooth.enable = false;
+
   # CUPS to print documents.
+  # CVE: https://discourse.nixos.org/t/newly-announced-vulnerabilities-in-cups/52771
   services.printing.enable = false;
-  # Wacom
+
+  # Wacom tablet
   services.xserver.wacom.enable = true;
   
   nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
@@ -34,7 +37,53 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # needed for LightDM
+
+
+services.xserver = {
+  enable = true;
+  displayManager = {
+    lightdm = {
+      enable = true;
+      greeters.gtk = {
+        enable = true;
+        theme.package = pkgs.gnome-themes-extra;
+        theme.name = "Adwaita-dark";
+        iconTheme.package = pkgs.adwaita-icon-theme;
+        iconTheme.name = "Adwaita";
+      };
+      background =
+        pkgs.runCommand "my-wallpaper" {} ''
+        mkdir -p $out
+        cp ${./wallpaper.png} $out/wallpaper.png
+        '' + "/wallpaper.png";
+    };
+  };
+};
+
+
+	#  services.xserver.enable = true;
+	#
+	#  services.xserver.displayManager.lightdm = {
+	#    enable = true;
+	#      greeters.gtk = {
+	#        enable = true;
+	#        theme.package = pkgs.flat-remix-gtk;
+	#        theme.name = "Flat-Remix-GTK-Dark-Blue";
+	#        iconTheme.package = pkgs.flat-remix-icon-theme;
+	#        iconTheme.name = "Flat-Remix-Dark-Blue";
+	#        background = "#000000"; # Or set to an absolute path for an image
+	#        # background = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+	#     # background =
+	#     # pkgs.runCommand "my-wallpaper" {} ''
+	#     #   mkdir -p $out
+	#     #   cp ${./wallpaper.png} $out/wallpaper.png
+	#     #   '' + "/wallpaper.png";
+	# };
+	#
+	#
+	#
+	#  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
