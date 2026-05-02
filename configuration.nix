@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -101,22 +101,21 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
   # it's using Lightdm.
   programs.niri.enable = true;
 
-  environment.systemPackages = with pkgs; [
+  
+    environment.systemPackages = with pkgs; [
+
     lm_sensors
     thinkfan
     htop
     alacritty
     xwayland-satellite
-    neovim
+    pkgs-unstable.neovim
     git
     stow
     gimp
