@@ -8,8 +8,9 @@
 
       # NIX stuff
       nixupdate = "sudo nixos-rebuild switch --upgrade";
+      nixrebuild = "sudo nixos-rebuild switch --flake /etc/nixos/";
       nixconf="sudo nvim /etc/nixos/configuration.nix";
-      nixclean="nix-collect-garbage";
+      nixclean="nh clean all --keep-since 7d --keep 4 --ask";
       nixbins="ls -l /nix/var/nix/profiles/system/sw/bin";
 
       # VSCodium

@@ -110,7 +110,17 @@
   
     environment.systemPackages = with pkgs; [
 
+
+
+  # # auto cleanup
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 20d";
+  # };
+  #
     lm_sensors
+    fastfetch
     thinkfan
     htop
     alacritty
@@ -125,6 +135,7 @@
     swaybg
     feh
     evince
+    pavucontrol
     brave
     ungoogled-chromium  
     vscodium
@@ -137,16 +148,8 @@
     psmisc #killall
     unzip #for nvim's stylua
     tree
+    nh
   ];
-
-
-  # # auto cleanup
-  # nix.gc = {
-  #   automatic = true;
-  #   dates = "weekly";
-  #   options = "--delete-older-than 20d";
-  # };
-  #
   # nix.optimise = {
   #   automatic = true;
   #   dates = ["weekly"];
