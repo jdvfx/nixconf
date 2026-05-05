@@ -7,8 +7,7 @@
       rebuild = "sudo nixos-rebuild switch";
 
       # NIX stuff
-      nixupdate = "sudo nixos-rebuild switch --upgrade";
-      nixrebuild = "sudo flake update && sudo nixos-rebuild switch --flake /etc/nixos/";
+      nixupdate = "cd /etc/nixos && sudo nix flake update && sudo nixos-rebuild switch --flake";
       nixconf="sudo nvim /etc/nixos/configuration.nix";
       nixclean="nh clean all --keep-since 7d --keep 4 --ask";
       nixbins="ls -l /nix/var/nix/profiles/system/sw/bin";
