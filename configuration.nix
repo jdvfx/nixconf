@@ -7,11 +7,18 @@
       ./aliases.nix
     ];
 
+
+
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   # fix T480 sleeping issue
   boot.kernelParams = [ "i915.enable_psr=0" ];
+
+
+  nixpkgs.config.allowUnfreePredicate = (pkg: true);
+
 
   networking.hostName = "thinkpad-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -110,15 +117,6 @@
   
     environment.systemPackages = with pkgs; [
 
-
-
-  # # auto cleanup
-  # nix.gc = {
-  #   automatic = true;
-  #   dates = "weekly";
-  #   options = "--delete-older-than 20d";
-  # };
-  #
     lm_sensors
     fastfetch
     thinkfan
@@ -149,6 +147,7 @@
     unzip #for nvim's stylua
     tree
     nh
+    spotify
   ];
   # nix.optimise = {
   #   automatic = true;
