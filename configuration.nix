@@ -149,6 +149,11 @@
     nh
     spotify
   ];
+
+  environment.sessionVariables = rec {
+ 	 GTK_THEME = Adwaita:dark;
+  };
+
   # nix.optimise = {
   #   automatic = true;
   #   dates = ["weekly"];
