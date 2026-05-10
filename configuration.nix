@@ -8,8 +8,6 @@
     ];
 
 
-
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -151,7 +149,7 @@
   ];
 
   environment.sessionVariables = rec {
- 	 GTK_THEME = Adwaita:dark;
+ 	 GTK_THEME = "Adwaita:dark";
   };
 
   # nix.optimise = {
