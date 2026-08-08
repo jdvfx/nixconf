@@ -1,10 +1,11 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
       ./aliases.nix
+      inputs.spicetify-nix.nixosModules.default 
     ];
 
 
@@ -63,6 +64,9 @@
     };
   };
 
+  # for Gnome Disks to work
+  services.udisks2.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -106,6 +110,20 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Install Spicetify for Spotify
+  # programs.spicetify = {
+  #   enable = true;
+  # };
+
+  programs.spicetify =
+  let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in
+  {
+    enable = true;
+    theme = spicePkgs.themes.catppuccin;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
@@ -146,6 +164,7 @@
     tree
     nh
     spotify
+    gnome-disk-utility
   ];
 
   environment.sessionVariables = rec {
